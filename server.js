@@ -1,87 +1,88 @@
-var express = require('express'); 
-var path = require('path'); 
-var app = express(); 
+var express = require('express');
+var path = require('path');
+var app = express();
 var paypal = require('paypal-rest-sdk');
 
-
 paypal.configure({
-  'mode': 'sandbox', //sandbox or live 
-  'client_id': '',
-  'client_secret': ''
+    'mode': 'sandbox', //sandbox or live 
+    'client_id': 'ASarO1V3B1Y0aFAZhft00t9TlYnNyOnk7vtRix720rZS2C7Ao8hlc9hcceB_iNvv172KlmUngSOhRCCT',
+    'client_secret': 'EO1XbTi5EgutPsiuHEDEru0KzATkEoSh8zoQiP5v6k32RuOjX3ZXjErgJaBXaKOfPJBNQaYUksEO-qWJ'
 });
 
 // set public directory to serve static files 
-app.use('/', express.static(path.join(__dirname, 'public'))); 
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 
 // redirect to store 
-app.get('/' , (req , res) => {
-    res.redirect('/index.html'); 
+app.get('/', (req, res) => {
+    res.redirect('/index.html');
 })
 
 // start payment process 
-app.get('/buy' , ( req , res ) => {
+app.get('/buy', (req, res) => {
     var payment = {
-            "intent": "authorize",
-	"payer": {
-		"payment_method": "paypal"
-	},
-	"redirect_urls": {
-		"return_url": "http://127.0.0.1:3000/success",
-		"cancel_url": "http://127.0.0.1:3000/err"
-	},
-	"transactions": [{
-		"amount": {
-			"total": 39.00,
-			"currency": "USD"
-		},
-		"description": " a book on mean stack "
-	}]
+        "intent": "authorize",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "redirect_urls": {
+            "return_url": "http://127.0.0.1:3000/success",
+            "cancel_url": "http://127.0.0.1:3000/err"
+        },
+        "transactions": [{
+            "amount": {
+                "total": 39.00,
+                "currency": "USD"
+            },
+            "description": " a book on mean stack "
+        }]
     }
-    createPay( payment ) 
-        .then( ( transaction ) => {
-            var id = transaction.id; 
+    createPay(payment)
+        .then((transaction) => {
+            var id = transaction.id;
             var links = transaction.links;
-            var counter = links.length; 
-            while( counter -- ) {
-                if ( links[counter].method == 'REDIRECT') {
-                    return res.redirect( links[counter].href )
+            var counter = links.length;
+            while (counter--) {
+                if (links[counter].method == 'REDIRECT') {
+                    return res.redirect(links[counter].href)
                 }
             }
         })
-        .catch( ( err ) => { 
-            console.log( err ); 
+        .catch((err) => {
+            console.log(err);
             res.redirect('/err');
         });
-}); 
+});
 
 
-app.get('/success' , (req ,res ) => {
-    console.log(req.query); 
-    res.redirect('/success.html'); 
+app.get('/success', (req, res) => {
+
+
+    console.log(req.query);
+    res.redirect('/success.html');
 })
 
-app.get('/err' , (req , res) => {
-    console.log(req.query); 
-    res.redirect('/err.html'); 
+app.get('/err', (req, res) => {
+    console.log(req.query);
+    res.redirect('/err.html');
 })
 
-app.listen( 3000 , () => {
-    console.log(' app listening on 3000 '); 
+app.listen(3000, () => {
+    console.log(' app listening on 3000 ');
 })
 
 
 
 // helper functions 
-var createPay = ( payment ) => {
-    return new Promise( ( resolve , reject ) => {
-        paypal.payment.create( payment , function( err , payment ) {
-         if ( err ) {
-             reject(err); 
-         }
-        else {
-            resolve(payment); 
-        }
-        }); 
+var createPay = (payment) => {
+    return new Promise((resolve, reject) => {
+        paypal.payment.create(payment, function (err, payment) {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(payment);
+            }
+        });
     });
 }
