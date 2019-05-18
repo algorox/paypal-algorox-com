@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title> Paypal integration with Auth0 rules </title>
+  <title> Paypal integration with Auth0 Rules </title>
 
 </head>
 
@@ -15,14 +15,17 @@
     if (paypalUrl) // redirect to paypal
     {
         var state = url.searchParams.get("state");
+        var paypalid = url.searchParams.get("state");
         localStorage.setItem("auth0_paypal_state", state);
 
         window.location.href = paypalUrl;
     }
     else { // are we coming back from paypal?
         var state = localStorage.getItem("auth0_paypal_state");
+        var url = new URL(window.location.href);
+        var paymentid= url.searchParams.get("paymentId");
 
-        window.location.href = "https://auth.algorox.com/continue?state=" + state;
+        window.location.href = "https://auth.algorox.com/continue?state=" + state + '&' + 'paymentId=' + paymentid;
     }
 
     </script>

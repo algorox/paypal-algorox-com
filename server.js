@@ -1,13 +1,15 @@
 var express = require('express');
 var path = require('path');
 var app = express();
-var paypal = require('paypal-rest-sdk');
+//var paypal = require('paypal-rest-sdk');
 
+/*
 paypal.configure({
     'mode': 'sandbox', //sandbox or live 
     'client_id': 'ASarO1V3B1Y0aFAZhft00t9TlYnNyOnk7vtRix720rZS2C7Ao8hlc9hcceB_iNvv172KlmUngSOhRCCT',
     'client_secret': 'EO1XbTi5EgutPsiuHEDEru0KzATkEoSh8zoQiP5v6k32RuOjX3ZXjErgJaBXaKOfPJBNQaYUksEO-qWJ'
 });
+*/
 
 // set public directory to serve static files 
 app.use('/', express.static(path.join(__dirname, 'public')));
@@ -18,6 +20,15 @@ app.get('/', (req, res) => {
     res.redirect('/index.html');
 })
 
+app.get('/error', (req, res) => {
+    res.redirect('/error.html');
+})
+
+app.listen(3000, () => {
+    console.log(' app listening on 3000 ');
+})
+
+/*
 // start payment process 
 app.get('/buy', (req, res) => {
     var payment = {
@@ -54,25 +65,18 @@ app.get('/buy', (req, res) => {
         });
 });
 
+*/
 
+/*
 app.get('/success', (req, res) => {
 
 
     console.log(req.query);
     res.redirect('/success.html');
 })
+*/
 
-app.get('/err', (req, res) => {
-    console.log(req.query);
-    res.redirect('/err.html');
-})
-
-app.listen(3000, () => {
-    console.log(' app listening on 3000 ');
-})
-
-
-
+/*
 // helper functions 
 var createPay = (payment) => {
     return new Promise((resolve, reject) => {
@@ -86,3 +90,4 @@ var createPay = (payment) => {
         });
     });
 }
+*/
