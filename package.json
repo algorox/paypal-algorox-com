@@ -1,28 +1,18 @@
 {
-  "name": "paypal-integration-using-nodejs",
+  "name": "paypal-algorox-com",
   "version": "1.0.0",
-  "description": "how to start accepting payments on your website using paypal",
+  "description": "App for delivering Paid Access to Algorox Services",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "keywords": [
-    "paypal",
-    "payment",
-    "gateway",
-    "nodejs",
-    "payment",
-    "integration",
-    "in",
-    "web",
-    "apps"
+    "paypal"
   ],
-  "author": "@nodejsera",
+  "author": "Julian Lywood-Mulcock",
   "license": "MIT",
   "dependencies": {
-    "auth0": "^2.17.0",
-    "express": "^4.15.4",
-    "paypal-rest-sdk": "^1.7.1"
+    "express": "^4.15.4"
   }
 }
