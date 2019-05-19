@@ -22,6 +22,7 @@
     }
     else { // are we coming back from paypal?
         var state = localStorage.getItem("auth0_paypal_state");
+        localStorage.removeItem("auth0_paypal_state");
         var url = new URL(window.location.href);
         var paymentid= url.searchParams.get("paymentId");
 
