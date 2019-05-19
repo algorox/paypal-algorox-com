@@ -24,8 +24,8 @@
         var url = new URL(window.location.href);
         var paymentid = url.searchParams.get("paymentId");
         
-        window.localStorage.removeItem("auth0_paypal_state");
-        window.location.href = "https://auth.algorox.com/continue?state=" + returnState + '&' + 'paymentId=' + paymentid;
+        //window.localStorage.removeItem("auth0_paypal_state");
+        //window.location.href = "https://auth.algorox.com/continue?state=" + returnState + '&' + 'paymentId=' + paymentid;
     }
 
     </script>
