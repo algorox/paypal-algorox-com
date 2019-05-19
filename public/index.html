@@ -16,16 +16,16 @@
     {
         var state = url.searchParams.get("state");
         
-        window.localStorage.setItem("auth0_paypal_state", state);
-        //window.location.href = paypalUrl;
+        window.sessionStorage.setItem("auth0_paypal_state", state);
+        window.location.href = paypalUrl;
     }
     else { // are we coming back from paypal?
-        var returnState = window.localStorage.getItem("auth0_paypal_state");
+        var returnState = window.sessionStorage.getItem("auth0_paypal_state");
         var url = new URL(window.location.href);
         var paymentid = url.searchParams.get("paymentId");
         
-        //window.localStorage.removeItem("auth0_paypal_state");
-        //window.location.href = "https://auth.algorox.com/continue?state=" + returnState + '&' + 'paymentId=' + paymentid;
+        window.sessionStorage.removeItem("auth0_paypal_state");
+        window.location.href = "https://auth.algorox.com/continue?state=" + returnState + '&' + 'paymentId=' + paymentid;
     }
 
     </script>
