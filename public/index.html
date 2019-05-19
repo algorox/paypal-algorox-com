@@ -21,10 +21,10 @@
     }
     else { // are we coming back from paypal?
         var state = window.localStorage.getItem("auth0_paypal_state");
-        window.localStorage.removeItem("auth0_paypal_state");
         var url = new URL(window.location.href);
-        var paymentid= url.searchParams.get("paymentId");
-
+        var paymentid = url.searchParams.get("paymentId");
+        
+        window.localStorage.removeItem("auth0_paypal_state");
         window.location.href = "https://auth.algorox.com/continue?state=" + state + '&' + 'paymentId=' + paymentid;
     }
 
