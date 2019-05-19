@@ -24,9 +24,7 @@ app.get('/error', (req, res) => {
     res.redirect('/error.html');
 })
 
-app.listen(3000, () => {
-    console.log(' app listening on 3000 ');
-})
+app.listen(process.env.PORT || port)
 
 /*
 // start payment process 
