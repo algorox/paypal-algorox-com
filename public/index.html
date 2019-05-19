@@ -15,7 +15,6 @@
     if (paypalUrl) // redirect to paypal
     {
         var state = url.searchParams.get("state");
-        var paypalid = url.searchParams.get("state");
         
         window.localStorage.setItem("auth0_paypal_state", state);
         window.location.href = paypalUrl;
