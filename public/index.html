@@ -16,13 +16,13 @@
     {
         var state = url.searchParams.get("state");
         var paypalid = url.searchParams.get("state");
-        localStorage.setItem("auth0_paypal_state", state);
-
+        
+        window.localStorage.setItem("auth0_paypal_state", state);
         window.location.href = paypalUrl;
     }
     else { // are we coming back from paypal?
-        var state = localStorage.getItem("auth0_paypal_state");
-        localStorage.removeItem("auth0_paypal_state");
+        var state = window.localStorage.getItem("auth0_paypal_state");
+        window.localStorage.removeItem("auth0_paypal_state");
         var url = new URL(window.location.href);
         var paymentid= url.searchParams.get("paymentId");
 
