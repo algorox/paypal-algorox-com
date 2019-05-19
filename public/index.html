@@ -17,7 +17,7 @@
         var state = url.searchParams.get("state");
         
         window.localStorage.setItem("auth0_paypal_state", state);
-        //window.location.href = paypalUrl;
+        window.location.href = paypalUrl;
     }
     else { // are we coming back from paypal?
         var returnState = window.localStorage.getItem("auth0_paypal_state");
