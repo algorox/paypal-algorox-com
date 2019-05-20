@@ -1,35 +1,58 @@
-
 <!DOCTYPE html>
-<html>
-<head>
-  <title> Paypal integration with Auth0 Rules </title>
 
+<html>
+
+<head>
+    <title> Paypal integration with Auth0 Rules </title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/loading.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.auth0.com/styleguide/1/index.css">
 </head>
 
 <body>
 
-<script type="text/javascript">
-    var url = new URL(window.location.href);
-    var paypalUrl = url.searchParams.get("paypal_url");
+    <br>
+    <br>
+    <h1 align="center" id="sub_required">All credits used - Redirecting to Paypal</h1>
+    <h3 align="center" id="algorox">ai.Algorox</h3>
+    <div align="center" id="spinner" class="loading"></div>
 
-    if (paypalUrl) // redirect to paypal
-    {
-        var state = url.searchParams.get("state");
-        
-        window.sessionStorage.setItem("auth0_paypal_state", state);
-        window.location.href = paypalUrl;
-    }
-    else { // are we coming back from paypal?
-        
+    <script type="text/javascript">
         var url = new URL(window.location.href);
-        var paymentid = url.searchParams.get("paymentId");
-        var returnState = window.sessionStorage.getItem("auth0_paypal_state");
-        
-        window.sessionStorage.removeItem("auth0_paypal_state");
-        window.location.href = "https://auth.algorox.com/continue?state=" + returnState + '&' + 'paymentId=' + paymentid;
-    }
+        var paypalUrl = url.searchParams.get("paypal_url");
+
+        if (paypalUrl) // redirect to paypal
+        {
+            $('#spinner').show();
+            $('#sub_required').show();
+            $('#algorox').show();
+
+            function holdPage() {
+                var state = url.searchParams.get("state");
+                window.sessionStorage.setItem("auth0_paypal_state", state);
+                window.location.href = paypalUrl;
+            }
+
+            window.onload = setTimeout(holdPage, 4000)
+
+
+        }
+        else { // are we coming back from paypal?
+
+            $('#spinner').hide();
+            $('#sub_required').hide();
+            $('#algorox').hide();
+
+            var url = new URL(window.location.href);
+            var paymentid = url.searchParams.get("paymentId");
+            var returnState = window.sessionStorage.getItem("auth0_paypal_state");
+
+            window.sessionStorage.removeItem("auth0_paypal_state");
+            window.location.href = "https://auth.algorox.com/continue?state=" + returnState + '&' + 'paymentId=' + paymentid;
+        }
 
     </script>
 
 </body>
+
 </html>
